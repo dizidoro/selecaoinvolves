@@ -1,0 +1,65 @@
+<!doctype html>
+<html ng-app="app">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+    <script src="js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    <script src="js/app/app.js"></script>
+    <script src="js/app/alertController.js"></script>
+    <script src="js/app/alertService.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/app/app.css"/>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-5">
+    <a class="navbar-brand font-weight-bold" href="#">Challenge</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <span class="nav-link">Alerts</span></span>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container justify-content-center" ng-controller="AlertListController as vm">
+    <div class="panel alert-list-filter">
+        <select name="type-filter" ng-model="vm.selectedType" ng-change="vm.filter()" ng-options="key as value for (key, value) in vm.typesLabels">
+            <option value="">Type</option>
+        </select>
+
+        <select name="point-of-sale-filter" ng-model="vm.selectedPointOfSale" ng-change="vm.filter()" ng-options="value as value for value in vm.pointsOfSale">
+            <option value="">Point of sale</option>
+        </select>
+    </div>
+
+    <div class="panel alert-list-table">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Alert</th>
+                <th scope="col">Point of sale</th>
+                <th scope="col">Product/Category</th>
+                <th scope="col">Margin</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="alert in vm.alertsFiltered">
+                <th scope="row">
+                    <span class="badge" ng-class="alert.style.badge">{{alert.style.label}}</span>
+                </th>
+                <td>{{alert.pointOfSale}}</td>
+                <td>{{alert.marketable}}</td>
+                <td>{{alert.priceMargin || alert.shareMargin || 'n/a'}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
